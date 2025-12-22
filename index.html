@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>长岛联合圣经教会</title>
+
+  <meta name="description" content="长岛联合圣经教会｜聚会时间｜公告｜联系" />
+  <meta name="theme-color" content="#0b0d10" />
+
+  <!-- iOS “添加到主屏幕” -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="联合圣经教会">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">◎</div>
+        <div>
+          <div class="title">长岛联合圣经教会</div>
+          <div class="subtitle">Long Island United Bible Church</div>
+        </div>
+      </div>
+
+      <button id="installBtn" class="btn ghost" type="button" hidden>
+        安装到手机
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 快捷入口 -->
+    <section class="card hero">
+      <h1>欢迎来到长岛联合圣经教会</h1>
+      <p class="muted">
+        这里是教会的手机首页（PWA）。可添加到主屏幕，像 App 一样打开。
+      </p>
+
+      <div class="quick">
+        <a class="btn" href="#schedule">聚会时间</a>
+        <a class="btn ghost" href="#announcements">公告</a>
+        <a class="btn ghost" href="#contact">联系</a>
+      </div>
+
+      <div class="pill-row">
+        <span class="pill">主日 2:30–4:00</span>
+        <span class="pill">周一查经 7:00–9:00</span>
+      </div>
+    </section>
+
+    <!-- 聚会时间 -->
+    <section id="schedule" class="card">
+      <div class="section-head">
+        <h2>聚会时间</h2>
+        <p class="muted">（可随时更新）</p>
+      </div>
+
+      <div class="list">
+        <div class="row">
+          <div class="row-left">
+            <div class="row-title">主日崇拜</div>
+            <div class="muted">周日（Sunday）</div>
+          </div>
+          <div class="row-right">
+            <div class="time">2:30 PM – 4:00 PM</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <div class="row-title">周一查经</div>
+            <div class="muted">周一（Monday）</div>
+          </div>
+          <div class="row-right">
+            <div class="time">7:00 PM – 9:00 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="muted small">温馨提示：若遇节假日或特别聚会，请以最新公告为准。</p>
+    </section>
+
+    <!-- 公告 -->
+    <section id="announcements" class="card">
+      <div class="section-head">
+        <h2>公告</h2>
+        <p class="muted">管理员可直接在网页里编辑这段内容。</p>
+      </div>
+
+      <div class="notice">
+        <div class="notice-title">本周提醒</div>
+        <ul class="bullets">
+          <li>欢迎新朋友参加主日崇拜。</li>
+          <li>周一查经鼓励大家提前 5–10 分钟上线/到场。</li>
+          <li>如需代祷或探访关怀，请联系同工。</li>
+        </ul>
+      </div>
+
+      <div class="notice">
+        <div class="notice-title">代祷事项（示例）</div>
+        <ul class="bullets">
+          <li>为教会弟兄姐妹身心灵平安代祷。</li>
+          <li>为长岛教会福音事工与新朋友代祷。</li>
+        </ul>
+      </div>
+
+      <p class="muted small">
+        以后你想更“像 App”，我可以帮你把公告改成：同工用 Google 表单提交 → 自动显示在这里。
+      </p>
+    </section>
+
+    <!-- 联系 -->
+    <section id="contact" class="card">
+      <div class="section-head">
+        <h2>联系</h2>
+        <p class="muted">先做最简单版本：电话/邮箱/地址可后续补充。</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="contact-label">邮箱（示例）</div>
+          <a class="contact-value" href="mailto:info@example.com">info@example.com</a>
+          <div class="muted small">把它改成教会邮箱即可</div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">电话（示例）</div>
+          <a class="contact-value" href="tel:+1-000-000-0000">+1 (000) 000-0000</a>
+          <div class="muted small">把它改成教会电话即可</div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">地点（示例）</div>
+          <div class="contact-value">Long Island, New York</div>
+          <div class="muted small">可改成聚会地址</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="#schedule">查看聚会时间</a>
+        <a class="btn ghost" href="#top">回到顶部</a>
+      </div>
+    </section>
+
+    <section class="card smallprint">
+      <h3>如何安装到手机主屏幕</h3>
+      <ol class="steps">
+        <li><strong>iPhone（Safari）</strong>：分享按钮 → “添加到主屏幕”。</li>
+        <li><strong>Android（Chrome）</strong>：右上角菜单 → “安装应用/添加到主屏幕”。</li>
+      </ol>
+      <p class="muted small">
+        注：必须通过 <strong>https</strong> 网址访问（GitHub Pages/Netlify 都是 https）。
+      </p>
+    </section>
+
+    <footer class="footer">
+      <div class="muted small">© <span id="year"></span> 长岛联合圣经教会</div>
+      <div class="muted small">PWA v1.0</div>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
