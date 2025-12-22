@@ -180,5 +180,14 @@
 
   <!-- ✅ PDF 自动生成列表脚本：必须放在 body 结束前 -->
   <script src="pdf-list.js"></script>
-</body>
+</body><script>
+  // Register Service Worker for PWA
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    });
+  }
+</script>
+
 </html>
+
