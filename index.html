@@ -106,21 +106,20 @@
         </a>
       </div>
 
-      <p class="muted small" style="margin-top:12px;">
-        提示：点击后将在新页面打开，支持手机浏览与分享。
-      </p>
-    </section>
-<!-- Weekly PDF -->
+<!-- Weekly PDFs (auto list from /pdf folder) -->
 <section id="weekly-pdf" class="card">
   <div class="section-head">
     <h2>每周周报（PDF）</h2>
-    <p class="muted">点击可在线查看或下载保存</p>
+    <p class="muted">上传到 /pdf 文件夹后，这里会自动显示</p>
   </div>
 
-  <p class="muted small" style="margin-top:10px;">
-    提示：若手机上下载不方便，可点击“在线查看”直接阅读。
-  </p>
+  <div id="pdfStatus" class="muted">正在读取 PDF 列表…</div>
+  <ul id="pdfList" class="pdf-list"></ul>
 </section>
+
+<!-- Add this line before </body> (if not already added) -->
+<script src="pdf-list.js"></script>
+
 
     <!-- 联系方式 -->
     <section id="contact" class="card">
@@ -170,6 +169,7 @@
   </script>
 </body>
 </html>
+
 
 
 
