@@ -2,6 +2,7 @@
   "name": "长岛联合圣经教会",
   "short_name": "联合圣经",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b0d10",
   "theme_color": "#0b0d10",
