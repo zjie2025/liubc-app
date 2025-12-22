@@ -1,27 +1,161 @@
-<!-- =========================
-     ANNOUNCEMENTS (Notion Link)
-     Final Version - Ready to Use
-     ========================= -->
-<section id="announcements" class="card">
-  <div class="section-head">
-    <h2>公告与聚会信息</h2>
-    <p class="muted">内容由教会同工在 Notion 中直接更新</p>
-  </div>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-  <p class="muted">
-    为了保证内容更新及时与稳定，教会公告、聚会安排与代祷事项统一在 Notion 页面中维护。
-  </p>
+  <title>长岛联合圣经教会</title>
+  <meta name="description" content="长岛联合圣经教会｜聚会时间｜公告｜代祷｜联系" />
+  <meta name="theme-color" content="#0b0d10" />
 
-  <div class="contact-links" style="margin-top:12px;">
-    <a class="btn"
-       href="https://www.notion.so/2d1ae3f3953780b595f8dc93ccfad4d0?source=copy_link"
-       target="_blank"
-       rel="noreferrer">
-      📄 查看最新公告与聚会安排
-    </a>
-  </div>
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="联合圣经教会">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <p class="muted small" style="margin-top:12px;">
-    提示：点击后将在新页面打开，支持手机浏览与分享。
-  </p>
-</section>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">◎</div>
+        <div>
+          <div class="title">长岛联合圣经教会</div>
+          <div class="subtitle">Long Island United Bible Church</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 首页欢迎 -->
+    <section class="card hero">
+      <h1>欢迎来到长岛联合圣经教会</h1>
+      <p class="muted">
+        这是教会的手机应用首页。可添加到手机主屏幕，像 App 一样使用。
+      </p>
+
+      <div class="quick">
+        <a class="btn" href="#schedule">聚会时间</a>
+        <a class="btn ghost" href="#announcements">公告</a>
+        <a class="btn ghost" href="#contact">联系</a>
+      </div>
+
+      <div class="pill-row">
+        <span class="pill">主日 2:30–4:00</span>
+        <span class="pill">周一查经 7:00–9:00</span>
+      </div>
+    </section>
+
+    <!-- 聚会时间 -->
+    <section id="schedule" class="card">
+      <div class="section-head">
+        <h2>聚会时间</h2>
+        <p class="muted">欢迎弟兄姐妹参加</p>
+      </div>
+
+      <div class="list">
+        <div class="row">
+          <div class="row-left">
+            <div class="row-title">主日崇拜</div>
+            <div class="muted">周日</div>
+          </div>
+          <div class="row-right">
+            <div class="time">2:30 PM – 4:00 PM</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <div class="row-title">周一查经</div>
+            <div class="muted">周一</div>
+          </div>
+          <div class="row-right">
+            <div class="time">7:00 PM – 9:00 PM</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="muted small">如遇节假日或特别聚会，请以公告为准。</p>
+    </section>
+
+    <!-- 公告与 Notion -->
+    <section id="announcements" class="card">
+      <div class="section-head">
+        <h2>公告与聚会信息</h2>
+        <p class="muted">内容由教会同工在 Notion 中直接更新</p>
+      </div>
+
+      <p class="muted">
+        教会公告、聚会安排与代祷事项统一在 Notion 页面中维护，
+        确保信息及时、准确。
+      </p>
+
+      <div class="contact-links" style="margin-top:12px;">
+        <a class="btn"
+           href="https://www.notion.so/2d1ae3f3953780b595f8dc93ccfad4d0?source=copy_link"
+           target="_blank"
+           rel="noreferrer">
+          📄 查看最新公告与聚会安排
+        </a>
+      </div>
+
+      <p class="muted small" style="margin-top:12px;">
+        提示：点击后将在新页面打开，支持手机浏览与分享。
+      </p>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="card">
+      <div class="section-head">
+        <h2>联系</h2>
+        <p class="muted">欢迎与我们联系</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="contact-label">邮箱</div>
+          <a class="contact-value" href="mailto:info@example.com">info@example.com</a>
+          <div class="muted small">请替换为教会邮箱</div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">电话</div>
+          <a class="contact-value" href="tel:+1-000-000-0000">+1 (000) 000-0000</a>
+          <div class="muted small">请替换为教会电话</div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-label">地点</div>
+          <div class="contact-value">Long Island, New York</div>
+          <div class="muted small">可填写聚会地址</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 安装提示 -->
+    <section class="card smallprint">
+      <h3>如何安装到手机主屏幕</h3>
+      <ol class="steps">
+        <li><strong>iPhone（Safari）</strong>：分享 → 添加到主屏幕</li>
+        <li><strong>Android（Chrome）</strong>：菜单 → 安装应用</li>
+      </ol>
+    </section>
+
+    <footer class="footer">
+      <div class="muted small">© <span id="year"></span> 长岛联合圣经教会</div>
+      <div class="muted small">PWA 教会应用</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
