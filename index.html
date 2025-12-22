@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>长岛联合圣经教会</title>
-  <meta name="description" content="长岛联合圣经教会｜聚会时间｜公告｜代祷｜联系" />
+  <meta name="description" content="长岛联合圣经教会｜聚会时间｜公告｜周报｜在线圣经｜联系" />
   <meta name="theme-color" content="#0b0d10" />
 
   <!-- iOS PWA -->
@@ -16,8 +16,32 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon-192.png" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Small extra styles (so you don't need to edit styles.css) -->
+  <style>
+    .bible-form{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:end;
+    }
+    .bible-label{ display:flex; flex-direction:column; gap:6px; min-width:200px; }
+    .bible-input{
+      padding:10px 12px; border-radius:14px;
+      border:1px solid var(--border);
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+      color: var(--text); outline:none;
+    }
+    .bible-input:focus{ border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+
+    /* PDF list (in case your styles.css doesn't include it) */
+    .pdf-list{ list-style:none; padding:0; margin:12px 0 0; }
+    .pdf-item{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:12px 0; border-top:1px solid var(--border);
+    }
+    .pdf-item:first-child{ border-top:none; }
+    .pdf-title{ font-weight:900; }
+    .pdf-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  </style>
 </head>
 
 <body>
@@ -31,7 +55,7 @@
         </div>
       </div>
 
-      <!-- ✅ 安装按钮：满足条件时才会自动显示 -->
+      <!-- Install button (shows only when available) -->
       <button id="installBtn" class="btn ghost" type="button" style="display:none;">
         安装到手机
       </button>
@@ -51,6 +75,7 @@
         <a class="btn" href="#schedule">聚会时间</a>
         <a class="btn ghost" href="#announcements">公告</a>
         <a class="btn ghost" href="#weekly-pdf">周报PDF</a>
+        <a class="btn ghost" href="#bible">在线圣经</a>
         <a class="btn ghost" href="#contact">联系</a>
       </div>
 
@@ -139,6 +164,108 @@
       </p>
     </section>
 
+    <!-- Online Bible (Built-in picker) -->
+    <section id="bible" class="card">
+      <div class="section-head">
+        <h2>在线圣经</h2>
+        <p class="muted">选择书卷与章节后打开阅读</p>
+      </div>
+
+      <div class="bible-form">
+        <label class="bible-label">
+          <span class="muted small">书卷</span>
+          <select id="bibleBook" class="bible-input">
+            <!-- Old Testament -->
+            <option value="Genesis">创世记 Genesis</option>
+            <option value="Exodus">出埃及记 Exodus</option>
+            <option value="Leviticus">利未记 Leviticus</option>
+            <option value="Numbers">民数记 Numbers</option>
+            <option value="Deuteronomy">申命记 Deuteronomy</option>
+            <option value="Joshua">约书亚记 Joshua</option>
+            <option value="Judges">士师记 Judges</option>
+            <option value="Ruth">路得记 Ruth</option>
+            <option value="1 Samuel">撒母耳记上 1 Samuel</option>
+            <option value="2 Samuel">撒母耳记下 2 Samuel</option>
+            <option value="1 Kings">列王纪上 1 Kings</option>
+            <option value="2 Kings">列王纪下 2 Kings</option>
+            <option value="1 Chronicles">历代志上 1 Chronicles</option>
+            <option value="2 Chronicles">历代志下 2 Chronicles</option>
+            <option value="Ezra">以斯拉记 Ezra</option>
+            <option value="Nehemiah">尼希米记 Nehemiah</option>
+            <option value="Esther">以斯帖记 Esther</option>
+            <option value="Job">约伯记 Job</option>
+            <option value="Psalms">诗篇 Psalms</option>
+            <option value="Proverbs">箴言 Proverbs</option>
+            <option value="Ecclesiastes">传道书 Ecclesiastes</option>
+            <option value="Song of Solomon">雅歌 Song of Solomon</option>
+            <option value="Isaiah">以赛亚书 Isaiah</option>
+            <option value="Jeremiah">耶利米书 Jeremiah</option>
+            <option value="Lamentations">耶利米哀歌 Lamentations</option>
+            <option value="Ezekiel">以西结书 Ezekiel</option>
+            <option value="Daniel">但以理书 Daniel</option>
+            <option value="Hosea">何西阿书 Hosea</option>
+            <option value="Joel">约珥书 Joel</option>
+            <option value="Amos">阿摩司书 Amos</option>
+            <option value="Obadiah">俄巴底亚书 Obadiah</option>
+            <option value="Jonah">约拿书 Jonah</option>
+            <option value="Micah">弥迦书 Micah</option>
+            <option value="Nahum">那鸿书 Nahum</option>
+            <option value="Habakkuk">哈巴谷书 Habakkuk</option>
+            <option value="Zephaniah">西番雅书 Zephaniah</option>
+            <option value="Haggai">哈该书 Haggai</option>
+            <option value="Zechariah">撒迦利亚书 Zechariah</option>
+            <option value="Malachi">玛拉基书 Malachi</option>
+
+            <!-- New Testament -->
+            <option value="Matthew">马太福音 Matthew</option>
+            <option value="Mark">马可福音 Mark</option>
+            <option value="Luke">路加福音 Luke</option>
+            <option value="John">约翰福音 John</option>
+            <option value="Acts">使徒行传 Acts</option>
+            <option value="Romans">罗马书 Romans</option>
+            <option value="1 Corinthians">哥林多前书 1 Corinthians</option>
+            <option value="2 Corinthians">哥林多后书 2 Corinthians</option>
+            <option value="Galatians">加拉太书 Galatians</option>
+            <option value="Ephesians">以弗所书 Ephesians</option>
+            <option value="Philippians">腓立比书 Philippians</option>
+            <option value="Colossians">歌罗西书 Colossians</option>
+            <option value="1 Thessalonians">帖撒罗尼迦前书 1 Thessalonians</option>
+            <option value="2 Thessalonians">帖撒罗尼迦后书 2 Thessalonians</option>
+            <option value="1 Timothy">提摩太前书 1 Timothy</option>
+            <option value="2 Timothy">提摩太后书 2 Timothy</option>
+            <option value="Titus">提多书 Titus</option>
+            <option value="Philemon">腓利门书 Philemon</option>
+            <option value="Hebrews">希伯来书 Hebrews</option>
+            <option value="James">雅各书 James</option>
+            <option value="1 Peter">彼得前书 1 Peter</option>
+            <option value="2 Peter">彼得后书 2 Peter</option>
+            <option value="1 John">约翰一书 1 John</option>
+            <option value="2 John">约翰二书 2 John</option>
+            <option value="3 John">约翰三书 3 John</option>
+            <option value="Jude">犹大书 Jude</option>
+            <option value="Revelation">启示录 Revelation</option>
+          </select>
+        </label>
+
+        <label class="bible-label">
+          <span class="muted small">章节（章）</span>
+          <input id="bibleChapter" class="bible-input" type="number" min="1" value="1" />
+        </label>
+
+        <button class="btn" type="button" onclick="openBibleChapter()">
+          📖 打开章节
+        </button>
+
+        <a class="btn ghost" href="https://www.bible.com/zh-CN/bible" target="_blank" rel="noreferrer">
+          在线圣经首页
+        </a>
+      </div>
+
+      <p class="muted small" style="margin-top:10px;">
+        提示：将使用在线圣经站点打开对应章节阅读。
+      </p>
+    </section>
+
     <!-- 联系方式 -->
     <section id="contact" class="card">
       <div class="section-head">
@@ -184,10 +311,25 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
-  <!-- ✅ PDF 自动生成列表脚本 -->
+  <!-- PDF 自动生成列表脚本（你仓库里必须有 pdf-list.js） -->
   <script src="pdf-list.js"></script>
 
-  <!-- ✅ 注册 Service Worker（按你的项目站点路径写死，更稳定） -->
+  <!-- 打开圣经章节（使用 bible.com 搜索打开章节） -->
+  <script>
+    function openBibleChapter() {
+      const book = document.getElementById("bibleBook").value;
+      const chapter = parseInt(document.getElementById("bibleChapter").value || "1", 10);
+
+      const safeChapter = Number.isFinite(chapter) && chapter > 0 ? chapter : 1;
+      const q = `${book} ${safeChapter}`;
+
+      // 使用 Bible.com 搜索页，通常能直接定位到对应章节
+      const url = `https://www.bible.com/search/bible?q=${encodeURIComponent(q)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  </script>
+
+  <!-- 注册 Service Worker（你的站点路径是 /liubc-app/） -->
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -196,7 +338,7 @@
     }
   </script>
 
-  <!-- ✅ 安装按钮逻辑（Android/Chrome 满足条件时会触发 beforeinstallprompt） -->
+  <!-- 安装按钮逻辑（Android/Chrome 可安装时才显示按钮） -->
   <script>
     let deferredPrompt = null;
     const installBtn = document.getElementById("installBtn");
@@ -215,7 +357,6 @@
       installBtn.style.display = "none";
     });
 
-    // 如果已安装（某些浏览器支持），就隐藏按钮
     window.addEventListener("appinstalled", () => {
       if (installBtn) installBtn.style.display = "none";
       deferredPrompt = null;
