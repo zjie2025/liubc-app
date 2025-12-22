@@ -1,13 +1,13 @@
 const CACHE_NAME = "liubc-pwa-v2";
 const ASSETS = [
-  "./",
-  "./index.html",
-  "./styles.css",
-  "./manifest.webmanifest",
-  "./pdf-list.js",
-  "./offline.html",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "/liubc-app/",
+  "/liubc-app/index.html",
+  "/liubc-app/styles.css",
+  "/liubc-app/manifest.webmanifest",
+  "/liubc-app/pdf-list.js",
+  "/liubc-app/offline.html",
+  "/liubc-app/icons/icon-192.png",
+  "/liubc-app/icons/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {
@@ -34,3 +34,4 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
