@@ -38,20 +38,21 @@
     <section class="card hero">
       <h1>欢迎来到长岛联合圣经教会</h1>
       <p class="muted">
-        Long Island United Bible Church
-        560 Old Bethpage Road, Plainview, NY11803
+        Long Island United Bible Church<br>
+        560 Old Bethpage Road, Plainview, NY 11803
       </p>
 
       <div class="quick">
         <a class="btn" href="#schedule">聚会时间</a>
         <a class="btn ghost" href="#announcements">公告</a>
+        <a class="btn ghost" href="#weekly-pdf">周报PDF</a>
         <a class="btn ghost" href="#contact">联系</a>
       </div>
 
       <div class="pill-row">
         <span class="pill">主日 2:30–4:00</span>
         <span class="pill">周一查经 7:00–9:00</span>
-        <span class="pill">周四祷告会 8：00-10：00</span>
+        <span class="pill">周四祷告会 8:00–10:00</span>
       </div>
     </section>
 
@@ -82,15 +83,14 @@
             <div class="time">7:00 PM – 9:00 PM</div>
           </div>
         </div>
-      </div>
 
-       <div class="row">
+        <div class="row">
           <div class="row-left">
             <div class="row-title">周四祷告会</div>
             <div class="muted">周四</div>
           </div>
           <div class="row-right">
-            <div class="time">8：00 PM – 10:00 PM</div>
+            <div class="time">8:00 PM – 10:00 PM</div>
           </div>
         </div>
       </div>
@@ -101,11 +101,9 @@
     <!-- 公告与 Notion -->
     <section id="announcements" class="card">
       <div class="section-head">
-        <h2>公告与聚会信息</h2>LIUBC每周公告<p class="muted">pp
+        <h2>公告与聚会信息</h2>
+        <p class="muted">LIUBC 每周公告（由同工在 Notion 更新）</p>
       </div>
-
-      <p class="muted">
-      </p>
 
       <div class="contact-links" style="margin-top:12px;">
         <a class="btn"
@@ -116,19 +114,25 @@
         </a>
       </div>
 
-<!-- Weekly PDFs (auto list from /pdf folder) -->
-<section id="weekly-pdf" class="card">
-  <div class="section-head">
-    <h2>每周周报（PDF）</h2>LIUBC周报信息<p class="muted">pp
-  </div>
+      <p class="muted small" style="margin-top:12px;">
+        提示：点击后将在新页面打开，支持手机浏览与分享。
+      </p>
+    </section>
 
-  <div id="pdfStatus" class="muted">正在读取 PDF 列表…</div>
-  <ul id="pdfList" class="pdf-list"></ul>
-</section>
+    <!-- Weekly PDFs (auto list from /pdf folder) -->
+    <section id="weekly-pdf" class="card">
+      <div class="section-head">
+        <h2>每周周报（PDF）</h2>
+        <p class="muted">上传到 GitHub 的 /pdf 文件夹后，这里会自动显示</p>
+      </div>
 
-<!-- Add this line before </body> (if not already added) -->
-<script src="pdf-list.js"></script>
+      <div id="pdfStatus" class="muted">正在读取 PDF 列表…</div>
+      <ul id="pdfList" class="pdf-list"></ul>
 
+      <p class="muted small" style="margin-top:12px;">
+        若未显示：请确认仓库里存在 <strong>pdf</strong> 文件夹（小写）且其中有 .pdf 文件。
+      </p>
+    </section>
 
     <!-- 联系方式 -->
     <section id="contact" class="card">
@@ -141,19 +145,16 @@
         <div class="contact-item">
           <div class="contact-label">邮箱</div>
           <a class="contact-value" href="mailto:LIUBCUSA@gmail.com">LIUBCUSA@gmail.com</a>
-          <div class="muted small"></div>
         </div>
 
         <div class="contact-item">
           <div class="contact-label">电话</div>
           <a class="contact-value" href="tel:+1-000-000-0000">+1 (000) 000-0000</a>
-          <div class="muted small"></div>
         </div>
 
         <div class="contact-item">
           <div class="contact-label">地点</div>
-          <div class="contact-value">560 Old Bethpage Road, Plainview, NY11803</div>
-          <div class="muted small"></div>
+          <div class="contact-value">560 Old Bethpage Road, Plainview, NY 11803</div>
         </div>
       </div>
     </section>
@@ -176,13 +177,8 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
+  <!-- ✅ PDF 自动生成列表脚本：必须放在 body 结束前 -->
+  <script src="pdf-list.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
