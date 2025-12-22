@@ -189,3 +189,16 @@ a:hover{ opacity:.92; }
 @media (min-width: 760px){
   .contact-grid{ grid-template-columns: 1fr 1fr 1fr; }
 }
+.pdf-list{ list-style:none; padding:0; margin:12px 0 0; }
+.pdf-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-top:1px solid var(--border);
+}
+.pdf-item:first-child{ border-top:none; }
+.pdf-title{ font-weight:900; }
+.pdf-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+
