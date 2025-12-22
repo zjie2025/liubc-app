@@ -1,14 +1,14 @@
 {
   "name": "长岛联合圣经教会",
   "short_name": "联合圣经",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/liubc-app/",
+  "scope": "/liubc-app/",
   "display": "standalone",
   "background_color": "#0b0d10",
   "theme_color": "#0b0d10",
   "lang": "zh-CN",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/liubc-app/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/liubc-app/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
