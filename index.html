@@ -30,6 +30,11 @@
           <div class="subtitle">Long Island United Bible Church</div>
         </div>
       </div>
+
+      <!-- ✅ 安装按钮：满足条件时才会自动显示 -->
+      <button id="installBtn" class="btn ghost" type="button" style="display:none;">
+        安装到手机
+      </button>
     </div>
   </header>
 
@@ -102,7 +107,7 @@
     <section id="announcements" class="card">
       <div class="section-head">
         <h2>公告与聚会信息</h2>
-        <p class="muted">LIUBC 每周公告（由同工在 Notion 更新）</p>
+        <p class="muted">LIUBC 每周公告</p>
       </div>
 
       <div class="contact-links" style="margin-top:12px;">
@@ -123,7 +128,7 @@
     <section id="weekly-pdf" class="card">
       <div class="section-head">
         <h2>每周周报（PDF）</h2>
-        <p class="muted">上传到 GitHub 的 /pdf 文件夹后，这里会自动显示</p>
+        <p class="muted">点击可在线查看或下载</p>
       </div>
 
       <div id="pdfStatus" class="muted">正在读取 PDF 列表…</div>
@@ -164,7 +169,7 @@
       <h3>如何安装到手机主屏幕</h3>
       <ol class="steps">
         <li><strong>iPhone（Safari）</strong>：分享 → 添加到主屏幕</li>
-        <li><strong>Android（Chrome）</strong>：菜单 → 安装应用</li>
+        <li><strong>Android（Chrome）</strong>：右上角菜单 → 安装应用（或添加到主屏幕）</li>
       </ol>
     </section>
 
@@ -174,20 +179,47 @@
     </footer>
   </main>
 
+  <!-- 年份 -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 
-  <!-- ✅ PDF 自动生成列表脚本：必须放在 body 结束前 -->
+  <!-- ✅ PDF 自动生成列表脚本 -->
   <script src="pdf-list.js"></script>
-</body><script>
-  // Register Service Worker for PWA
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./sw.js").catch(() => {});
+
+  <!-- ✅ 注册 Service Worker（按你的项目站点路径写死，更稳定） -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/liubc-app/sw.js").catch(() => {});
+      });
+    }
+  </script>
+
+  <!-- ✅ 安装按钮逻辑（Android/Chrome 满足条件时会触发 beforeinstallprompt） -->
+  <script>
+    let deferredPrompt = null;
+    const installBtn = document.getElementById("installBtn");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) installBtn.style.display = "inline-flex";
     });
-  }
-</script>
+
+    installBtn?.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      try { await deferredPrompt.userChoice; } catch (_) {}
+      deferredPrompt = null;
+      installBtn.style.display = "none";
+    });
+
+    // 如果已安装（某些浏览器支持），就隐藏按钮
+    window.addEventListener("appinstalled", () => {
+      if (installBtn) installBtn.style.display = "none";
+      deferredPrompt = null;
+    });
+  </script>
+</body>
 </html>
-
-
