@@ -18,15 +18,11 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Extra styles for "App-like" bottom nav + Bible form -->
   <style>
-    /* Give space for bottom tab bar */
     body { padding-bottom: 92px; }
 
-    /* App-like bottom nav */
     .tabbar{
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
+      position: fixed; left:0; right:0; bottom:0;
       z-index: 999;
       background: color-mix(in srgb, #0b0d10 92%, transparent);
       border-top: 1px solid rgba(255,255,255,0.10);
@@ -37,82 +33,50 @@
     .tabbar-inner{
       max-width: 980px;
       margin: 0 auto;
-      display: grid;
+      display:grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap:10px;
     }
     .tabbtn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-      padding: 12px 10px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 800;
-      letter-spacing: 0.2px;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 10px;
+      border-radius:16px;
+      text-decoration:none;
+      font-weight:800;
       color: rgba(255,255,255,0.92);
-      background: #131822;            /* deep button color */
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-      user-select: none;
+      background:#131822;
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:0 10px 24px rgba(0,0,0,0.35);
+      user-select:none;
       -webkit-tap-highlight-color: transparent;
     }
-    .tabbtn:active{
-      transform: translateY(1px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-    }
-    .tabicon{ font-size: 16px; line-height: 1; }
-    .tabtext{ font-size: 13px; line-height: 1; }
+    .tabbtn:active{ transform: translateY(1px); box-shadow:0 6px 16px rgba(0,0,0,0.35); }
+    .tabicon{ font-size:16px; line-height:1; }
+    .tabtext{ font-size:13px; line-height:1; }
+    @media (max-width:420px){ .tabtext{font-size:12px;} .tabbtn{padding:12px 8px;} }
 
-    @media (max-width: 420px){
-      .tabtext{ font-size: 12px; }
-      .tabbtn{ padding: 12px 8px; }
-    }
-
-    /* Bible form */
-    .bible-form{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
-      align-items:end;
-    }
-    .bible-label{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:200px;
-      flex: 1 1 220px;
-    }
+    .bible-form{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:end; }
+    .bible-label{ display:flex; flex-direction:column; gap:6px; min-width:200px; flex: 1 1 220px; }
     .bible-input{
       padding:10px 12px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.04);
-      color: inherit;
+      color:inherit;
       outline:none;
     }
-    .bible-input:focus{
-      border-color: rgba(255,255,255,0.28);
-    }
+    .bible-input:focus{ border-color: rgba(255,255,255,0.28); }
 
-    /* PDF list (fallback if not in styles.css) */
     .pdf-list{ list-style:none; padding:0; margin:12px 0 0; }
     .pdf-item{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 0;
-      border-top:1px solid rgba(255,255,255,0.10);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:12px 0; border-top:1px solid rgba(255,255,255,0.10);
     }
     .pdf-item:first-child{ border-top:none; }
     .pdf-title{ font-weight:900; }
     .pdf-actions{ display:flex; gap:10px; flex-wrap:wrap; }
     .pdf-actions a{ text-decoration:none; }
 
-    /* Smooth scrolling for anchor navigation */
     html { scroll-behavior: smooth; }
   </style>
 </head>
@@ -128,7 +92,6 @@
         </div>
       </div>
 
-      <!-- Install button (shows only when available) -->
       <button id="installBtn" class="btn ghost" type="button" style="display:none;">
         安装到手机
       </button>
@@ -136,7 +99,6 @@
   </header>
 
   <main class="container">
-    <!-- 首页欢迎 -->
     <section class="card hero" id="top">
       <h1>欢迎来到长岛联合圣经教会</h1>
       <p class="muted">
@@ -160,7 +122,6 @@
       </p>
     </section>
 
-    <!-- 聚会时间 -->
     <section id="schedule" class="card">
       <div class="section-head">
         <h2>聚会时间</h2>
@@ -202,7 +163,6 @@
       <p class="muted small">如遇节假日或特别聚会，请以公告为准。</p>
     </section>
 
-    <!-- 公告与 Notion -->
     <section id="announcements" class="card">
       <div class="section-head">
         <h2>公告与聚会信息</h2>
@@ -223,22 +183,27 @@
       </p>
     </section>
 
-    <!-- 每周周报 PDF -->
+    <!-- ✅ 最新 5 份（按年份文件夹，文件名 YYYY-MM-DD.pdf） -->
     <section id="weekly-pdf" class="card">
       <div class="section-head">
         <h2>每周周报（PDF）</h2>
-        <p class="muted">点击可在线查看或下载</p>
+        <p class="muted">自动显示最新 5 份（按年份归档）</p>
       </div>
 
       <div id="pdfStatus" class="muted">正在读取 PDF 列表…</div>
       <ul id="pdfList" class="pdf-list"></ul>
 
+      <div class="contact-links" style="margin-top:12px;">
+        <a id="pdfYearFolderBtn" class="btn ghost" href="#" target="_blank" rel="noreferrer" style="display:none;">
+          📁 查看今年全部周报（文件夹）
+        </a>
+      </div>
+
       <p class="muted small" style="margin-top:12px;">
-        若未显示：请确认仓库里存在 <strong>pdf</strong> 文件夹（小写）且其中有 .pdf 文件。
+        上传规则：放在 <strong>/pdf/年份/</strong> 文件夹，例如：<strong>/pdf/2025/2025-12-22.pdf</strong>
       </p>
     </section>
 
-    <!-- 在线圣经 -->
     <section id="bible" class="card">
       <div class="section-head">
         <h2>在线圣经</h2>
@@ -249,7 +214,6 @@
         <label class="bible-label">
           <span class="muted small">书卷</span>
           <select id="bibleBook" class="bible-input">
-            <!-- Old Testament (39) -->
             <option value="Genesis">创世记 Genesis</option>
             <option value="Exodus">出埃及记 Exodus</option>
             <option value="Leviticus">利未记 Leviticus</option>
@@ -289,8 +253,6 @@
             <option value="Haggai">哈该书 Haggai</option>
             <option value="Zechariah">撒迦利亚书 Zechariah</option>
             <option value="Malachi">玛拉基书 Malachi</option>
-
-            <!-- New Testament (27) -->
             <option value="Matthew">马太福音 Matthew</option>
             <option value="Mark">马可福音 Mark</option>
             <option value="Luke">路加福音 Luke</option>
@@ -340,7 +302,6 @@
       </p>
     </section>
 
-    <!-- 代祷事项（Notion） -->
     <section id="prayer" class="card">
       <div class="section-head">
         <h2>代祷事项</h2>
@@ -361,7 +322,6 @@
       </p>
     </section>
 
-    <!-- 联系方式 -->
     <section id="contact" class="card">
       <div class="section-head">
         <h2>联系</h2>
@@ -386,7 +346,6 @@
       </div>
     </section>
 
-    <!-- 安装提示 -->
     <section class="card smallprint">
       <h3>如何安装到手机主屏幕</h3>
       <ol class="steps">
@@ -401,7 +360,6 @@
     </footer>
   </main>
 
-  <!-- Bottom App-like 4 buttons -->
   <nav class="tabbar" aria-label="App navigation">
     <div class="tabbar-inner">
       <a class="tabbtn" href="#announcements" aria-label="公告与聚会信息">
@@ -413,8 +371,6 @@
       <a class="tabbtn" href="#bible" aria-label="在线圣经">
         <span class="tabicon">📖</span><span class="tabtext">圣经</span>
       </a>
-
-      <!-- ✅ Prayer button opens Notion directly (Method A) -->
       <a class="tabbtn"
          href="https://www.notion.so/2d2ae3f395378040bc68e371b18e3738?source=copy_link"
          target="_blank"
@@ -425,16 +381,8 @@
     </div>
   </nav>
 
-  <!-- 年份 -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-
-  <!-- PDF 自动生成列表脚本（你仓库里必须有 pdf-list.js） -->
-  <script src="pdf-list.js"></script>
-
-  <!-- 打开圣经章节 -->
-  <script>
     function openBibleChapter() {
       const book = document.getElementById("bibleBook").value;
       const chapter = parseInt(document.getElementById("bibleChapter").value || "1", 10);
@@ -445,7 +393,8 @@
     }
   </script>
 
-  <!-- 注册 Service Worker（你的站点路径是 /liubc-app/） -->
+  <script src="pdf-list.js"></script>
+
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -454,7 +403,6 @@
     }
   </script>
 
-  <!-- 安装按钮逻辑（Android/Chrome 可安装时才显示按钮） -->
   <script>
     let deferredPrompt = null;
     const installBtn = document.getElementById("installBtn");
