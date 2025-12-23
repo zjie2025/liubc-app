@@ -328,18 +328,49 @@
 
   <!-- 打开圣经章节（使用 bible.com 搜索打开章节） -->
   <script>
-    function openBibleChapter() {
-      const book = document.getElementById("bibleBook").value;
-      const chapter = parseInt(document.getElementById("bibleChapter").value || "1", 10);
+  function openBibleChapter() {
+    // ✅ 版本ID：46 通常是中文（简体）和合本相关版本之一
+    // 如果你发现打开的不是你想要的版本，可以把 46 改成你想要的版本ID
+    const bibleId = 46;
 
-      const safeChapter = Number.isFinite(chapter) && chapter > 0 ? chapter : 1;
-      const q = `${book} ${safeChapter}`;
+    const bookRaw = (document.getElementById("bibleBook").value || "").trim();
+    const chapterInput = document.getElementById("bibleChapter").value || "1";
+    const chapter = Math.max(1, parseInt(chapterInput, 10) || 1);
 
-      // 使用 Bible.com 搜索页，通常能直接定位到对应章节
-      const url = `https://www.bible.com/search/bible?q=${encodeURIComponent(q)}`;
-      window.open(url, "_blank", "noopener,noreferrer");
+    // 将下拉框里的英文书名映射为 Bible.com 常用书卷缩写（66卷全）
+    const bookToAbbr = {
+      // OT
+      "Genesis":"GEN","Exodus":"EXO","Leviticus":"LEV","Numbers":"NUM","Deuteronomy":"DEU",
+      "Joshua":"JOS","Judges":"JDG","Ruth":"RUT","1 Samuel":"1SA","2 Samuel":"2SA",
+      "1 Kings":"1KI","2 Kings":"2KI","1 Chronicles":"1CH","2 Chronicles":"2CH",
+      "Ezra":"EZR","Nehemiah":"NEH","Esther":"EST","Job":"JOB","Psalms":"PSA",
+      "Proverbs":"PRO","Ecclesiastes":"ECC","Song of Solomon":"SNG","Isaiah":"ISA",
+      "Jeremiah":"JER","Lamentations":"LAM","Ezekiel":"EZK","Daniel":"DAN","Hosea":"HOS",
+      "Joel":"JOL","Amos":"AMO","Obadiah":"OBA","Jonah":"JON","Micah":"MIC","Nahum":"NAM",
+      "Habakkuk":"HAB","Zephaniah":"ZEP","Haggai":"HAG","Zechariah":"ZEC","Malachi":"MAL",
+
+      // NT
+      "Matthew":"MAT","Mark":"MRK","Luke":"LUK","John":"JHN","Acts":"ACT","Romans":"ROM",
+      "1 Corinthians":"1CO","2 Corinthians":"2CO","Galatians":"GAL","Ephesians":"EPH",
+      "Philippians":"PHP","Colossians":"COL","1 Thessalonians":"1TH","2 Thessalonians":"2TH",
+      "1 Timothy":"1TI","2 Timothy":"2TI","Titus":"TIT","Philemon":"PHM","Hebrews":"HEB",
+      "James":"JAS","1 Peter":"1PE","2 Peter":"2PE","1 John":"1JN","2 John":"2JN","3 John":"3JN",
+      "Jude":"JUD","Revelation":"REV"
+    };
+
+    const abbr = bookToAbbr[bookRaw];
+
+    if (!abbr) {
+      // 万一出现未匹配（极少），就提示用户
+      alert("未识别的书卷名称，请在下拉框重新选择一次。");
+      return;
     }
-  </script>
+
+    // ✅ 直达章节页面（不是搜索页）
+    const url = `https://www.bible.com/bible/${bibleId}/${abbr}.${chapter}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+</script>
 
   <!-- 注册 Service Worker（你的站点路径是 /liubc-app/） -->
   <script>
@@ -376,4 +407,5 @@
   </script>
 </body>
 </html>
+
 
