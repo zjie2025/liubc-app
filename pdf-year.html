@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>周报归档</title>
+  <meta name="theme-color" content="#0b0d10" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { padding-bottom: 24px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin: 16px 0; }
+    .year-select { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    select{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: inherit;
+      outline:none;
+    }
+    .pdf-list{ list-style:none; padding:0; margin:12px 0 0; }
+    .pdf-item{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:12px 0; border-top:1px solid rgba(255,255,255,0.10);
+    }
+    .pdf-item:first-child{ border-top:none; }
+    .pdf-title{ font-weight:900; }
+    .pdf-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .pdf-actions a{ text-decoration:none; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="topbar">
+        <div>
+          <h2 style="margin:0;">周报归档</h2>
+          <p class="muted" style="margin:6px 0 0;">选择年份查看该年度全部周报</p>
+        </div>
+        <a class="btn ghost" href="./">返回首页</a>
+      </div>
+
+      <div class="year-select">
+        <label class="muted small">年份</label>
+        <select id="yearSelect"></select>
+        <span id="status" class="muted"></span>
+      </div>
+
+      <ul id="list" class="pdf-list"></ul>
+
+      <p class="muted small" style="margin-top:12px;">
+        文件命名格式：<strong>YYYY-MM-DD.pdf</strong>，存放路径：<strong>/pdf/年份/</strong>
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const OWNER = "zjie2025";
+    const REPO = "liubc-app";
+    const BRANCH = "main";
+    const BASE_DIR = "pdf";
+    const PAGES_BASE = `https://${OWNER}.github.io/${REPO}`;
+
+    const qs = new URLSearchParams(location.search);
+    const nowYear = new Date().getFullYear();
+    const initialYear = parseInt(qs.get("y") || nowYear, 10);
+
+    const yearSelect = document.getElementById("yearSelect");
+    const statusEl = document.getElementById("status");
+    const listEl = document.getElementById("list");
+
+    // 生成下拉：当前年往前 5 年（你也可以改成 10）
+    const years = [];
+    for (let y = nowYear; y >= nowYear - 5; y--) years.push(y);
+
+    years.forEach(y => {
+      const opt = document.createElement("option");
+      opt.value = String(y);
+      opt.textContent = String(y);
+      if (y === initialYear) opt.selected = true;
+      yearSelect.appendChild(opt);
+    });
+
+    function parseDate(name) {
+      const base = name.replace(/\.pdf$/i, "");
+      const m = base.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!m) return 0;
+      return new Date(+m[1], +m[2]-1, +m[3]).getTime();
+    }
+
+    async function loadYear(y) {
+      listEl.innerHTML = "";
+      statusEl.textContent = "加载中…";
+
+      const dir = `${BASE_DIR}/${y}`;
+      const api = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${dir}?ref=${BRANCH}`;
+
+      const res = await fetch(api, { cache: "no-store" });
+      if (!res.ok) {
+        statusEl.textContent = `该年份暂无周报（${y}）`;
+        return;
+      }
+
+      const files = await res.json();
+      const pdfs = (files || [])
+        .filter(f => f.type === "file" && f.name.toLowerCase().endsWith(".pdf"))
+        .map(f => ({
+          name: f.name,
+          date: parseDate(f.name),
+          url: `${PAGES_BASE}/${dir}/${f.name}`
+        }))
+        .sort((a,b) => b.date - a.date);
+
+      if (!pdfs.length) {
+        statusEl.textContent = `该年份暂无周报（${y}）`;
+        return;
+      }
+
+      statusEl.textContent = `共 ${pdfs.length} 份`;
+
+      pdfs.forEach(p => {
+        const li = document.createElement("li");
+        li.className = "pdf-item";
+        li.innerHTML = `
+          <div>
+            <div class="pdf-title">${p.name.replace(".pdf","")}</div>
+            <div class="muted small">${y} 年周报</div>
+          </div>
+          <div class="pdf-actions">
+            <a class="btn" href="${p.url}" target="_blank" rel="noreferrer">在线查看</a>
+            <a class="btn ghost" href="${p.url}" download>下载</a>
+          </div>
+        `;
+        listEl.appendChild(li);
+      });
+    }
+
+    yearSelect.addEventListener("change", () => {
+      const y = yearSelect.value;
+      history.replaceState(null, "", `?y=${encodeURIComponent(y)}`);
+      loadYear(parseInt(y, 10));
+    });
+
+    loadYear(initialYear);
+  </script>
+</body>
+</html>
