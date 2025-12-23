@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>长岛联合圣经教会</title>
-  <meta name="description" content="长岛联合圣经教会｜聚会时间｜公告｜周报｜在线圣经｜联系" />
+  <meta name="description" content="长岛联合圣经教会｜聚会时间｜公告｜周报｜在线圣经｜代祷｜联系" />
   <meta name="theme-color" content="#0b0d10" />
 
   <!-- iOS PWA -->
@@ -18,41 +18,102 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Small extra styles (so you don't need to edit styles.css) -->
+  <!-- Extra styles for "App-like" bottom nav + Bible form -->
   <style>
+    /* Give space for bottom tab bar */
+    body { padding-bottom: 92px; }
+
+    /* App-like bottom nav */
+    .tabbar{
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 999;
+      background: color-mix(in srgb, #0b0d10 92%, transparent);
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .tabbar-inner{
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .tabbtn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 12px 10px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: rgba(255,255,255,0.92);
+      background: #131822;            /* deep button color */
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tabbtn:active{
+      transform: translateY(1px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+    }
+    .tabicon{ font-size: 16px; line-height: 1; }
+    .tabtext{ font-size: 13px; line-height: 1; }
+
+    @media (max-width: 420px){
+      .tabtext{ font-size: 12px; }
+      .tabbtn{ padding: 12px 8px; }
+    }
+
+    /* Bible form */
     .bible-form{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:end;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+      align-items:end;
     }
-    .bible-label{ display:flex; flex-direction:column; gap:6px; min-width:200px; }
+    .bible-label{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:200px;
+      flex: 1 1 220px;
+    }
     .bible-input{
-      padding:10px 12px; border-radius:14px;
-      border:1px solid var(--border);
-      background: color-mix(in srgb, var(--panel) 70%, transparent);
-      color: var(--text); outline:none;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: inherit;
+      outline:none;
     }
-    .bible-input:focus{ border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
-    /* ✅ 修复深色模式下 select / option 白底白字问题 */
-.bible-input,
-.bible-input option {
-  background-color: #0b0d10 !important; /* 黑底 */
-  color: #ffffff !important;            /* 白字 */
-}
+    .bible-input:focus{
+      border-color: rgba(255,255,255,0.28);
+    }
 
-.bible-input option:hover,
-.bible-input option:checked {
-  background-color: #1a1d24 !important;
-  color: #ffffff !important;
-}
-
-    /* PDF list (in case your styles.css doesn't include it) */
+    /* PDF list (fallback if not in styles.css) */
     .pdf-list{ list-style:none; padding:0; margin:12px 0 0; }
     .pdf-item{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:12px 0; border-top:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+      border-top:1px solid rgba(255,255,255,0.10);
     }
     .pdf-item:first-child{ border-top:none; }
     .pdf-title{ font-weight:900; }
     .pdf-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+    .pdf-actions a{ text-decoration:none; }
+
+    /* Smooth scrolling for anchor navigation */
+    html { scroll-behavior: smooth; }
   </style>
 </head>
 
@@ -76,7 +137,7 @@
 
   <main class="container">
     <!-- 首页欢迎 -->
-    <section class="card hero">
+    <section class="card hero" id="top">
       <h1>欢迎来到长岛联合圣经教会</h1>
       <p class="muted">
         Long Island United Bible Church<br>
@@ -85,9 +146,6 @@
 
       <div class="quick">
         <a class="btn" href="#schedule">聚会时间</a>
-        <a class="btn ghost" href="#announcements">公告</a>
-        <a class="btn ghost" href="#weekly-pdf">周报PDF</a>
-        <a class="btn ghost" href="#bible">在线圣经</a>
         <a class="btn ghost" href="#contact">联系</a>
       </div>
 
@@ -96,6 +154,10 @@
         <span class="pill">周一查经 7:00–9:00</span>
         <span class="pill">周四祷告会 8:00–10:00</span>
       </div>
+
+      <p class="muted small" style="margin-top:10px;">
+        提示：底部有四个功能按钮（公告 / 周报 / 圣经 / 代祷），点击即可快速进入。
+      </p>
     </section>
 
     <!-- 聚会时间 -->
@@ -161,7 +223,7 @@
       </p>
     </section>
 
-    <!-- Weekly PDFs (auto list from /pdf folder) -->
+    <!-- 每周周报 PDF -->
     <section id="weekly-pdf" class="card">
       <div class="section-head">
         <h2>每周周报（PDF）</h2>
@@ -176,7 +238,7 @@
       </p>
     </section>
 
-    <!-- Online Bible (Built-in picker) -->
+    <!-- 在线圣经 -->
     <section id="bible" class="card">
       <div class="section-head">
         <h2>在线圣经</h2>
@@ -187,7 +249,7 @@
         <label class="bible-label">
           <span class="muted small">书卷</span>
           <select id="bibleBook" class="bible-input">
-            <!-- Old Testament -->
+            <!-- Old Testament (39) -->
             <option value="Genesis">创世记 Genesis</option>
             <option value="Exodus">出埃及记 Exodus</option>
             <option value="Leviticus">利未记 Leviticus</option>
@@ -228,7 +290,7 @@
             <option value="Zechariah">撒迦利亚书 Zechariah</option>
             <option value="Malachi">玛拉基书 Malachi</option>
 
-            <!-- New Testament -->
+            <!-- New Testament (27) -->
             <option value="Matthew">马太福音 Matthew</option>
             <option value="Mark">马可福音 Mark</option>
             <option value="Luke">路加福音 Luke</option>
@@ -278,6 +340,41 @@
       </p>
     </section>
 
+    <!-- 代祷事项 -->
+    <section id="prayer" class="card">
+      <div class="section-head">
+        <h2>代祷事项</h2>
+        <p class="muted">请为教会与弟兄姐妹同心祷告</p>
+      </div>
+
+      <div class="list">
+        <div class="row">
+          <div class="row-left">
+            <div class="row-title">为教会整体</div>
+            <div class="muted">求主带领聚会、同工配搭、福音广传</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <div class="row-title">为弟兄姐妹需要</div>
+            <div class="muted">身体健康、家庭关系、工作与学业</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-left">
+            <div class="row-title">为慕道友与新朋友</div>
+            <div class="muted">愿主开路、赐下信心与渴慕</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="muted small" style="margin-top:12px;">
+        如需提交代祷事项，可联系同工或发送邮件至教会邮箱。
+      </p>
+    </section>
+
     <!-- 联系方式 -->
     <section id="contact" class="card">
       <div class="section-head">
@@ -318,6 +415,24 @@
     </footer>
   </main>
 
+  <!-- Bottom App-like 4 buttons -->
+  <nav class="tabbar" aria-label="App navigation">
+    <div class="tabbar-inner">
+      <a class="tabbtn" href="#announcements" aria-label="公告与聚会信息">
+        <span class="tabicon">📣</span><span class="tabtext">公告</span>
+      </a>
+      <a class="tabbtn" href="#weekly-pdf" aria-label="每周周报 PDF">
+        <span class="tabicon">📄</span><span class="tabtext">周报</span>
+      </a>
+      <a class="tabbtn" href="#bible" aria-label="在线圣经">
+        <span class="tabicon">📖</span><span class="tabtext">圣经</span>
+      </a>
+      <a class="tabbtn" href="#prayer" aria-label="代祷事项">
+        <span class="tabicon">🙏</span><span class="tabtext">代祷</span>
+      </a>
+    </div>
+  </nav>
+
   <!-- 年份 -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -326,51 +441,17 @@
   <!-- PDF 自动生成列表脚本（你仓库里必须有 pdf-list.js） -->
   <script src="pdf-list.js"></script>
 
-  <!-- 打开圣经章节（使用 bible.com 搜索打开章节） -->
+  <!-- 打开圣经章节 -->
   <script>
-  function openBibleChapter() {
-    // ✅ 版本ID：46 通常是中文（简体）和合本相关版本之一
-    // 如果你发现打开的不是你想要的版本，可以把 46 改成你想要的版本ID
-    const bibleId = 46;
-
-    const bookRaw = (document.getElementById("bibleBook").value || "").trim();
-    const chapterInput = document.getElementById("bibleChapter").value || "1";
-    const chapter = Math.max(1, parseInt(chapterInput, 10) || 1);
-
-    // 将下拉框里的英文书名映射为 Bible.com 常用书卷缩写（66卷全）
-    const bookToAbbr = {
-      // OT
-      "Genesis":"GEN","Exodus":"EXO","Leviticus":"LEV","Numbers":"NUM","Deuteronomy":"DEU",
-      "Joshua":"JOS","Judges":"JDG","Ruth":"RUT","1 Samuel":"1SA","2 Samuel":"2SA",
-      "1 Kings":"1KI","2 Kings":"2KI","1 Chronicles":"1CH","2 Chronicles":"2CH",
-      "Ezra":"EZR","Nehemiah":"NEH","Esther":"EST","Job":"JOB","Psalms":"PSA",
-      "Proverbs":"PRO","Ecclesiastes":"ECC","Song of Solomon":"SNG","Isaiah":"ISA",
-      "Jeremiah":"JER","Lamentations":"LAM","Ezekiel":"EZK","Daniel":"DAN","Hosea":"HOS",
-      "Joel":"JOL","Amos":"AMO","Obadiah":"OBA","Jonah":"JON","Micah":"MIC","Nahum":"NAM",
-      "Habakkuk":"HAB","Zephaniah":"ZEP","Haggai":"HAG","Zechariah":"ZEC","Malachi":"MAL",
-
-      // NT
-      "Matthew":"MAT","Mark":"MRK","Luke":"LUK","John":"JHN","Acts":"ACT","Romans":"ROM",
-      "1 Corinthians":"1CO","2 Corinthians":"2CO","Galatians":"GAL","Ephesians":"EPH",
-      "Philippians":"PHP","Colossians":"COL","1 Thessalonians":"1TH","2 Thessalonians":"2TH",
-      "1 Timothy":"1TI","2 Timothy":"2TI","Titus":"TIT","Philemon":"PHM","Hebrews":"HEB",
-      "James":"JAS","1 Peter":"1PE","2 Peter":"2PE","1 John":"1JN","2 John":"2JN","3 John":"3JN",
-      "Jude":"JUD","Revelation":"REV"
-    };
-
-    const abbr = bookToAbbr[bookRaw];
-
-    if (!abbr) {
-      // 万一出现未匹配（极少），就提示用户
-      alert("未识别的书卷名称，请在下拉框重新选择一次。");
-      return;
+    function openBibleChapter() {
+      const book = document.getElementById("bibleBook").value;
+      const chapter = parseInt(document.getElementById("bibleChapter").value || "1", 10);
+      const safeChapter = Number.isFinite(chapter) && chapter > 0 ? chapter : 1;
+      const q = `${book} ${safeChapter}`;
+      const url = `https://www.bible.com/search/bible?q=${encodeURIComponent(q)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
     }
-
-    // ✅ 直达章节页面（不是搜索页）
-    const url = `https://www.bible.com/bible/${bibleId}/${abbr}.${chapter}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-</script>
+  </script>
 
   <!-- 注册 Service Worker（你的站点路径是 /liubc-app/） -->
   <script>
@@ -407,5 +488,3 @@
   </script>
 </body>
 </html>
-
-
