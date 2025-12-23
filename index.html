@@ -31,6 +31,18 @@
       color: var(--text); outline:none;
     }
     .bible-input:focus{ border-color: color-mix(in srgb, var(--accent) 55%, var(--border)); }
+    /* ✅ 修复深色模式下 select / option 白底白字问题 */
+.bible-input,
+.bible-input option {
+  background-color: #0b0d10 !important; /* 黑底 */
+  color: #ffffff !important;            /* 白字 */
+}
+
+.bible-input option:hover,
+.bible-input option:checked {
+  background-color: #1a1d24 !important;
+  color: #ffffff !important;
+}
 
     /* PDF list (in case your styles.css doesn't include it) */
     .pdf-list{ list-style:none; padding:0; margin:12px 0 0; }
@@ -364,3 +376,4 @@
   </script>
 </body>
 </html>
+
