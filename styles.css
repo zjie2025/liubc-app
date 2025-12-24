@@ -201,4 +201,19 @@ a:hover{ opacity:.92; }
 .pdf-item:first-child{ border-top:none; }
 .pdf-title{ font-weight:900; }
 .pdf-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+/* ===== Fix: Bible select dropdown readable ===== */
+#bibleBook, #bibleBook option {
+  background: #111827 !important;   /* 深色背景 */
+  color: #ffffff !important;        /* 白字 */
+}
+
+/* 有些手机/浏览器需要单独写 option */
+select option {
+  background: #111827 !important;
+  color: #ffffff !important;
+}
+
+/* 让表单控件更符合深色主题 */
+:root { color-scheme: dark; }
+
 
