@@ -288,7 +288,7 @@
           <input id="bibleChapter" class="bible-input" type="text" inputmode="numeric" placeholder="例如：3 或 3:16" value="1" />
         </label>
 
-        <button class="btn" type="button" onclick="openBibleChapter()">
+        <button id="openBibleBtn" class="btn" type="button">📖 打开章节</button>
           📖 打开章节
         </button>
 
@@ -536,7 +536,98 @@
       deferredPrompt = null;
     });
   </script>
+  <script>
+  (function () {
+    // 让下拉菜单在深色主题可读
+    const style = document.createElement("style");
+    style.textContent = `
+      #bibleBook, #bibleBook option, select option {
+        background: #111827 !important;
+        color: #ffffff !important;
+      }
+      :root { color-scheme: dark; }
+    `;
+    document.head.appendChild(style);
+
+    // ✅ 版本：简体和合本（带神字）
+    const VERSION_ID = 48;
+    const VERSION_CODE = "CUNPSS-神";
+
+    // 你的下拉框 value 是英文书名 -> 映射为 YouVersion 书卷缩写
+    const BOOK_CODE = {
+      "Genesis":"GEN","Exodus":"EXO","Leviticus":"LEV","Numbers":"NUM","Deuteronomy":"DEU",
+      "Joshua":"JOS","Judges":"JDG","Ruth":"RUT","1 Samuel":"1SA","2 Samuel":"2SA",
+      "1 Kings":"1KI","2 Kings":"2KI","1 Chronicles":"1CH","2 Chronicles":"2CH",
+      "Ezra":"EZR","Nehemiah":"NEH","Esther":"EST","Job":"JOB","Psalms":"PSA",
+      "Proverbs":"PRO","Ecclesiastes":"ECC","Song of Solomon":"SNG","Isaiah":"ISA",
+      "Jeremiah":"JER","Lamentations":"LAM","Ezekiel":"EZK","Daniel":"DAN","Hosea":"HOS",
+      "Joel":"JOL","Amos":"AMO","Obadiah":"OBA","Jonah":"JON","Micah":"MIC","Nahum":"NAM",
+      "Habakkuk":"HAB","Zephaniah":"ZEP","Haggai":"HAG","Zechariah":"ZEC","Malachi":"MAL",
+      "Matthew":"MAT","Mark":"MRK","Luke":"LUK","John":"JHN","Acts":"ACT","Romans":"ROM",
+      "1 Corinthians":"1CO","2 Corinthians":"2CO","Galatians":"GAL","Ephesians":"EPH",
+      "Philippians":"PHP","Colossians":"COL","1 Thessalonians":"1TH","2 Thessalonians":"2TH",
+      "1 Timothy":"1TI","2 Timothy":"2TI","Titus":"TIT","Philemon":"PHM","Hebrews":"HEB",
+      "James":"JAS","1 Peter":"1PE","2 Peter":"2PE","1 John":"1JN","2 John":"2JN",
+      "3 John":"3JN","Jude":"JUD","Revelation":"REV"
+    };
+
+    function buildBibleUrl() {
+      const bookName = document.getElementById("bibleBook")?.value;
+      const book = BOOK_CODE[bookName];
+      if (!book) throw new Error("书卷识别失败（bibleBook value 不匹配）");
+
+      // ✅ 允许输入：3 或 3:16
+      const raw = String(document.getElementById("bibleChapter")?.value || "").trim();
+      if (!raw) throw new Error("请输入章节，例如：3 或 3:16");
+
+      let chapter = 1;
+      let verse = null;
+
+      if (raw.includes(":")) {
+        const parts = raw.split(":").map(s => s.trim());
+        chapter = parseInt(parts[0], 10);
+        verse = parseInt(parts[1], 10);
+      } else {
+        chapter = parseInt(raw, 10);
+      }
+
+      if (!Number.isFinite(chapter) || chapter <= 0) chapter = 1;
+      if (verse !== null && (!Number.isFinite(verse) || verse <= 0)) verse = null;
+
+      const ref = verse ? `${book}.${chapter}.${verse}` : `${book}.${chapter}`;
+      return `https://www.bible.com/bible/${VERSION_ID}/${ref}.${encodeURIComponent(VERSION_CODE)}`;
+    }
+
+    // ✅ 强制绑定按钮点击（不依赖 onclick）
+    window.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("openBibleBtn");
+      if (!btn) {
+        console.error("找不到按钮 #openBibleBtn");
+        return;
+      }
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        try {
+          const url = buildBibleUrl();
+
+          // ✅ 先给一个“确实点到了”的反馈（你测试用）
+          // 如果你确认正常了，可以把下一行删掉
+          // alert("正在打开：" + url);
+
+          // ✅ 用 location 跳转（手机不会拦截）
+          window.location.href = url;
+        } catch (err) {
+          console.error(err);
+          alert(err?.message || "打开失败，请检查输入格式。");
+        }
+      }, { passive: false });
+    });
+  })();
+</script>
 </body>
 </html>
+
 
 
