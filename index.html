@@ -383,14 +383,124 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-    function openBibleChapter() {
-      const book = document.getElementById("bibleBook").value;
-      const chapter = parseInt(document.getElementById("bibleChapter").value || "1", 10);
-      const safeChapter = Number.isFinite(chapter) && chapter > 0 ? chapter : 1;
-      const q = `${book} ${safeChapter}`;
-      const url = `https://www.bible.com/search/bible?q=${encodeURIComponent(q)}`;
-      window.open(url, "_blank", "noopener,noreferrer");
+<script>
+  function openBibleChapter() {
+    // ✅ 使用 YouVersion（bible.com）“直达章节/经节”链接
+    // 译本：新标点和合本, 神版（简体）CUNPSS-神，版本ID：48
+    const VERSION_ID = 48;
+    const VERSION_CODE = "CUNPSS-神"; // 会自动编码成 URL 可用格式
+
+    // 你的下拉框 value 是英文书名（Genesis / Exodus ...）
+    // 这里做一个映射 -> YouVersion 书卷缩写（GEN / EXO ...）
+    const BOOK_CODE = {
+      "Genesis": "GEN",
+      "Exodus": "EXO",
+      "Leviticus": "LEV",
+      "Numbers": "NUM",
+      "Deuteronomy": "DEU",
+      "Joshua": "JOS",
+      "Judges": "JDG",
+      "Ruth": "RUT",
+      "1 Samuel": "1SA",
+      "2 Samuel": "2SA",
+      "1 Kings": "1KI",
+      "2 Kings": "2KI",
+      "1 Chronicles": "1CH",
+      "2 Chronicles": "2CH",
+      "Ezra": "EZR",
+      "Nehemiah": "NEH",
+      "Esther": "EST",
+      "Job": "JOB",
+      "Psalms": "PSA",
+      "Proverbs": "PRO",
+      "Ecclesiastes": "ECC",
+      "Song of Solomon": "SNG",
+      "Isaiah": "ISA",
+      "Jeremiah": "JER",
+      "Lamentations": "LAM",
+      "Ezekiel": "EZK",
+      "Daniel": "DAN",
+      "Hosea": "HOS",
+      "Joel": "JOL",
+      "Amos": "AMO",
+      "Obadiah": "OBA",
+      "Jonah": "JON",
+      "Micah": "MIC",
+      "Nahum": "NAM",
+      "Habakkuk": "HAB",
+      "Zephaniah": "ZEP",
+      "Haggai": "HAG",
+      "Zechariah": "ZEC",
+      "Malachi": "MAL",
+      "Matthew": "MAT",
+      "Mark": "MRK",
+      "Luke": "LUK",
+      "John": "JHN",
+      "Acts": "ACT",
+      "Romans": "ROM",
+      "1 Corinthians": "1CO",
+      "2 Corinthians": "2CO",
+      "Galatians": "GAL",
+      "Ephesians": "EPH",
+      "Philippians": "PHP",
+      "Colossians": "COL",
+      "1 Thessalonians": "1TH",
+      "2 Thessalonians": "2TH",
+      "1 Timothy": "1TI",
+      "2 Timothy": "2TI",
+      "Titus": "TIT",
+      "Philemon": "PHM",
+      "Hebrews": "HEB",
+      "James": "JAS",
+      "1 Peter": "1PE",
+      "2 Peter": "2PE",
+      "1 John": "1JN",
+      "2 John": "2JN",
+      "3 John": "3JN",
+      "Jude": "JUD",
+      "Revelation": "REV"
+    };
+
+    const bookName = document.getElementById("bibleBook").value;
+    const book = BOOK_CODE[bookName];
+
+    // 允许输入： "3" 或 "3:16"
+    const raw = String(document.getElementById("bibleChapter").value || "1").trim();
+
+    // 基本校验
+    if (!book) {
+      alert("书卷识别失败，请刷新页面后重试。");
+      return;
     }
+    if (!raw) {
+      alert("请输入章节，例如：1 或 3:16");
+      return;
+    }
+
+    let chapter = 1;
+    let verse = null;
+
+    // 支持 3:16
+    if (raw.includes(":")) {
+      const parts = raw.split(":").map(s => s.trim());
+      chapter = parseInt(parts[0], 10);
+      verse = parseInt(parts[1], 10);
+    } else {
+      chapter = parseInt(raw, 10);
+    }
+
+    if (!Number.isFinite(chapter) || chapter <= 0) chapter = 1;
+    if (verse !== null && (!Number.isFinite(verse) || verse <= 0)) verse = null;
+
+    // ✅ 生成直达链接（章节或经节）
+    // 章节： https://www.bible.com/bible/48/GEN.1.CUNPSS-神
+    // 经节： https://www.bible.com/bible/48/JHN.3.16.CUNPSS-神
+    const ref = verse ? `${book}.${chapter}.${verse}` : `${book}.${chapter}`;
+    const url = `https://www.bible.com/bible/${VERSION_ID}/${ref}.${encodeURIComponent(VERSION_CODE)}`;
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+</script>
   </script>
 
   <script src="pdf-list.js"></script>
@@ -428,3 +538,4 @@
   </script>
 </body>
 </html>
+
