@@ -6,6 +6,19 @@
 
   <title>长岛联合圣经教会</title>
   <meta name="description" content="长岛联合圣经教会｜聚会时间｜公告｜周报｜在线圣经｜代祷｜联系" />
+  <link rel="canonical" href="https://zjie2025.github.io/liubc-app/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="长岛联合圣经教会">
+  <meta property="og:description" content="长岛联合圣经教会｜聚会时间｜公告｜周报｜在线圣经｜代祷｜联系">
+  <meta property="og:url" content="https://zjie2025.github.io/liubc-app/">
+  <meta property="og:image" content="https://zjie2025.github.io/liubc-app/images/hero-worship.webp">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Church",
+   "name":"长岛联合圣经教会",
+   "url":"https://zjie2025.github.io/liubc-app/",
+   "email":"liubc.us@gmail.com"}
+  </script>
   <meta name="theme-color" content="#0b0d10" />
 
   <!-- iOS PWA -->
@@ -20,6 +33,7 @@
 
   <style>
     body { padding-bottom: 92px; }
+    .hero-img { width: 100%; height: 230px; object-fit: cover; border-radius: 14px; margin-bottom: 14px; }
 
     .tabbar{
       position: fixed; left:0; right:0; bottom:0;
@@ -55,6 +69,7 @@
     .tabtext{ font-size:13px; line-height:1; }
     @media (max-width:420px){ .tabtext{font-size:12px;} .tabbtn{padding:12px 8px;} }
 
+    .section-img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-top: 12px; }
     .bible-form{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; align-items:end; }
     .bible-label{ display:flex; flex-direction:column; gap:6px; min-width:200px; flex: 1 1 220px; }
     .bible-input{
@@ -100,8 +115,10 @@
 
   <main class="container">
     <section class="card hero" id="top">
-      <h1>欢迎来到长岛联合圣经教会</h1>
+      <img class="hero-img" src="images/hero-worship.webp" alt="长岛联合圣经教会敬拜现场">
+      <h1>欢迎回家 —— 长岛联合圣经教会</h1>
       <p class="muted">
+        无论你是第一次走进来，还是在这里长大，这里都为你留了位置。<br>
         Long Island United Bible Church<br>
         560 Old Bethpage Road, Plainview, NY 11803
       </p>
@@ -198,16 +215,15 @@
         </a>
       </div>
 
-      <p class="muted small" style="margin-top:12px;">
-      </strong>
-      </p>
+
     </section>
 
     <section id="bible" class="card">
       <div class="section-head">
         <h2>在线圣经</h2>
-        <p class="muted">选择书卷与章节后打开阅读</p>
+        <p class="muted">读经 —— 和合本，点击直达章节</p>
       </div>
+      <img class="section-img" src="images/bible-coffee.webp" alt="翻开的圣经与一杯咖啡">
 
       <div class="bible-form">
         <label class="bible-label">
@@ -288,7 +304,6 @@
         </label>
 
         <button id="openBibleBtn" class="btn" type="button">📖 打开章节</button>
-        </button>
 
         <a class="btn ghost" href="https://www.bible.com/zh-CN/bible" target="_blank" rel="noreferrer">
           在线圣经首页
@@ -303,7 +318,7 @@
     <section id="prayer" class="card">
       <div class="section-head">
         <h2>代祷事项</h2>
-        <p class="muted">点击查看最新代祷事项</p>
+        <p class="muted">把重担交托，我们一起祷告</p>
       </div>
 
       <div class="contact-links" style="margin-top:12px;">
@@ -329,12 +344,7 @@
       <div class="contact-grid">
         <div class="contact-item">
           <div class="contact-label">邮箱</div>
-          <a class="contact-value" href="mailto:LIUBCUSA@gmail.com">LIUBCUSA@gmail.com</a>
-        </div>
-
-        <div class="contact-item">
-          <div class="contact-label">电话</div>
-          <a class="contact-value" href="tel:+1-000-000-0000">+1 (000) 000-0000</a>
+          <a class="contact-value" href="mailto:liubc.us@gmail.com">liubc.us@gmail.com</a>
         </div>
 
         <div class="contact-item">
@@ -381,124 +391,6 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-<script>
-  function openBibleChapter() {
-    // ✅ 使用 YouVersion（bible.com）“直达章节/经节”链接
-    // 译本：新标点和合本, 神版（简体）CUNPSS-神，版本ID：48
-    const VERSION_ID = 48;
-    const VERSION_CODE = "CUNPSS-神"; // 会自动编码成 URL 可用格式
-
-    // 你的下拉框 value 是英文书名（Genesis / Exodus ...）
-    // 这里做一个映射 -> YouVersion 书卷缩写（GEN / EXO ...）
-    const BOOK_CODE = {
-      "Genesis": "GEN",
-      "Exodus": "EXO",
-      "Leviticus": "LEV",
-      "Numbers": "NUM",
-      "Deuteronomy": "DEU",
-      "Joshua": "JOS",
-      "Judges": "JDG",
-      "Ruth": "RUT",
-      "1 Samuel": "1SA",
-      "2 Samuel": "2SA",
-      "1 Kings": "1KI",
-      "2 Kings": "2KI",
-      "1 Chronicles": "1CH",
-      "2 Chronicles": "2CH",
-      "Ezra": "EZR",
-      "Nehemiah": "NEH",
-      "Esther": "EST",
-      "Job": "JOB",
-      "Psalms": "PSA",
-      "Proverbs": "PRO",
-      "Ecclesiastes": "ECC",
-      "Song of Solomon": "SNG",
-      "Isaiah": "ISA",
-      "Jeremiah": "JER",
-      "Lamentations": "LAM",
-      "Ezekiel": "EZK",
-      "Daniel": "DAN",
-      "Hosea": "HOS",
-      "Joel": "JOL",
-      "Amos": "AMO",
-      "Obadiah": "OBA",
-      "Jonah": "JON",
-      "Micah": "MIC",
-      "Nahum": "NAM",
-      "Habakkuk": "HAB",
-      "Zephaniah": "ZEP",
-      "Haggai": "HAG",
-      "Zechariah": "ZEC",
-      "Malachi": "MAL",
-      "Matthew": "MAT",
-      "Mark": "MRK",
-      "Luke": "LUK",
-      "John": "JHN",
-      "Acts": "ACT",
-      "Romans": "ROM",
-      "1 Corinthians": "1CO",
-      "2 Corinthians": "2CO",
-      "Galatians": "GAL",
-      "Ephesians": "EPH",
-      "Philippians": "PHP",
-      "Colossians": "COL",
-      "1 Thessalonians": "1TH",
-      "2 Thessalonians": "2TH",
-      "1 Timothy": "1TI",
-      "2 Timothy": "2TI",
-      "Titus": "TIT",
-      "Philemon": "PHM",
-      "Hebrews": "HEB",
-      "James": "JAS",
-      "1 Peter": "1PE",
-      "2 Peter": "2PE",
-      "1 John": "1JN",
-      "2 John": "2JN",
-      "3 John": "3JN",
-      "Jude": "JUD",
-      "Revelation": "REV"
-    };
-
-    const bookName = document.getElementById("bibleBook").value;
-    const book = BOOK_CODE[bookName];
-
-    // 允许输入： "3" 或 "3:16"
-    const raw = String(document.getElementById("bibleChapter").value || "1").trim();
-
-    // 基本校验
-    if (!book) {
-      alert("书卷识别失败，请刷新页面后重试。");
-      return;
-    }
-    if (!raw) {
-      alert("请输入章节，例如：1 或 3:16");
-      return;
-    }
-
-    let chapter = 1;
-    let verse = null;
-
-    // 支持 3:16
-    if (raw.includes(":")) {
-      const parts = raw.split(":").map(s => s.trim());
-      chapter = parseInt(parts[0], 10);
-      verse = parseInt(parts[1], 10);
-    } else {
-      chapter = parseInt(raw, 10);
-    }
-
-    if (!Number.isFinite(chapter) || chapter <= 0) chapter = 1;
-    if (verse !== null && (!Number.isFinite(verse) || verse <= 0)) verse = null;
-
-    // ✅ 生成直达链接（章节或经节）
-    // 章节： https://www.bible.com/bible/48/GEN.1.CUNPSS-神
-    // 经节： https://www.bible.com/bible/48/JHN.3.16.CUNPSS-神
-    const ref = verse ? `${book}.${chapter}.${verse}` : `${book}.${chapter}`;
-    const url = `https://www.bible.com/bible/${VERSION_ID}/${ref}.${encodeURIComponent(VERSION_CODE)}`;
-
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
-</script>
   </script>
 
   <script src="pdf-list.js"></script>
