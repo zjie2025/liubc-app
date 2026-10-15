@@ -1,14 +1,14 @@
 :root{
-  --bg:#0b0d10;
-  --panel: rgba(255,255,255,.06);
-  --text: rgba(255,255,255,.92);
-  --muted: rgba(255,255,255,.70);
-  --border: rgba(255,255,255,.12);
-  --shadow: 0 12px 42px rgba(0,0,0,.28);
+  --bg:#f2f8f3;
+  --panel: #ffffff;
+  --text: #1c2b20;
+  --muted: #5c6f60;
+  --border: #d9e9dc;
+  --shadow: 0 12px 42px rgba(46,125,50,.10);
   --radius: 18px;
   --max: 980px;
   --pad: 18px;
-  --accent: #7aa2ff;
+  --accent: #2e7d32;
 }
 
 *{ box-sizing: border-box; }
@@ -20,8 +20,8 @@ body{
                "PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei", Arial, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(850px 520px at 20% 10%, rgba(122,162,255,.18), transparent 60%),
-    radial-gradient(850px 520px at 80% 10%, rgba(130,255,218,.10), transparent 60%),
+    radial-gradient(850px 520px at 20% 10%, rgba(46,125,50,.10), transparent 60%),
+    radial-gradient(850px 520px at 80% 10%, rgba(200,230,201,.35), transparent 60%),
     var(--bg);
 }
 
@@ -203,17 +203,17 @@ a:hover{ opacity:.92; }
 .pdf-actions{ display:flex; gap:10px; flex-wrap:wrap; }
 /* ===== Fix: Bible select dropdown readable ===== */
 #bibleBook, #bibleBook option {
-  background: #111827 !important;   /* 深色背景 */
-  color: #ffffff !important;        /* 白字 */
+  background: #ffffff !important;
+  color: #1c2b20 !important;
 }
 
 /* 有些手机/浏览器需要单独写 option */
 select option {
-  background: #111827 !important;
-  color: #ffffff !important;
+  background: #ffffff !important;
+  color: #1c2b20 !important;
 }
 
-/* 让表单控件更符合深色主题 */
-:root { color-scheme: dark; }
+/* 浅色主题 */
+:root { color-scheme: light; }
 
 

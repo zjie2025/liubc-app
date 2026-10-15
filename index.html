@@ -19,7 +19,7 @@
    "url":"https://zjie2025.github.io/liubc-app/",
    "email":"liubc.us@gmail.com"}
   </script>
-  <meta name="theme-color" content="#0b0d10" />
+  <meta name="theme-color" content="#e8f5e9" />
 
   <!-- iOS PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,8 +38,8 @@
     .tabbar{
       position: fixed; left:0; right:0; bottom:0;
       z-index: 999;
-      background: color-mix(in srgb, #0b0d10 92%, transparent);
-      border-top: 1px solid rgba(255,255,255,0.10);
+      background: color-mix(in srgb, #e8f5e9 92%, transparent);
+      border-top: 1px solid var(--border);
       padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -57,14 +57,14 @@
       border-radius:16px;
       text-decoration:none;
       font-weight:800;
-      color: rgba(255,255,255,0.92);
-      background:#131822;
-      border:1px solid rgba(255,255,255,0.12);
-      box-shadow:0 10px 24px rgba(0,0,0,0.35);
+      color: #2e5c33;
+      background:#ffffff;
+      border:1px solid var(--border);
+      box-shadow:0 10px 24px rgba(46,125,50,0.12);
       user-select:none;
       -webkit-tap-highlight-color: transparent;
     }
-    .tabbtn:active{ transform: translateY(1px); box-shadow:0 6px 16px rgba(0,0,0,0.35); }
+    .tabbtn:active{ transform: translateY(1px); box-shadow:0 6px 16px rgba(46,125,50,0.12); }
     .tabicon{ font-size:16px; line-height:1; }
     .tabtext{ font-size:13px; line-height:1; }
     @media (max-width:420px){ .tabtext{font-size:12px;} .tabbtn{padding:12px 8px;} }
@@ -75,17 +75,17 @@
     .bible-input{
       padding:10px 12px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
+      border:1px solid var(--border);
+      background: #ffffff;
       color:inherit;
       outline:none;
     }
-    .bible-input:focus{ border-color: rgba(255,255,255,0.28); }
+    .bible-input:focus{ border-color: var(--accent); }
 
     .pdf-list{ list-style:none; padding:0; margin:12px 0 0; }
     .pdf-item{
       display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:12px 0; border-top:1px solid rgba(255,255,255,0.10);
+      padding:12px 0; border-top:1px solid var(--border);
     }
     .pdf-item:first-child{ border-top:none; }
     .pdf-title{ font-weight:900; }
@@ -162,6 +162,7 @@
           </div>
           <div class="row-right">
             <div class="time">7:00 PM – 9:00 PM</div>
+            <div class="muted small">Zoom 会议号：359 934 4762，密码：1314</div>
           </div>
         </div>
 
@@ -172,11 +173,58 @@
           </div>
           <div class="row-right">
             <div class="time">8:00 PM – 10:00 PM</div>
+            <div class="muted small">Zoom 会议号：359 934 4762，密码：1314</div>
           </div>
         </div>
       </div>
 
       <p class="muted small">如遇节假日或特别聚会，请以公告为准。</p>
+    </section>
+
+    <section id="saturday" class="card">
+      <div class="section-head">
+        <h2>周六活动区</h2>
+      </div>
+      <div class="notice">
+        <div class="notice-title">包馄饨，包团圆 🥟</div>
+        <p class="muted" style="margin:0;">
+          本月第四个周六（10月24日）下午两点，姜丽丽姐妹在教会餐厅组织会友一起包馄饨，
+          在欢声笑语中彼此相交、分享主爱。欢迎弟兄姐妹带家人朋友一起来，边包边聊，其乐融融！
+        </p>
+      </div>
+    </section>
+
+    <section id="staff" class="card">
+      <div class="section-head">
+        <h2>教会人事</h2>
+        <p class="muted">2026 执事团队</p>
+      </div>
+      <div class="list">
+        <div class="row">
+          <div class="row-title">主席</div>
+          <div class="time">周杰</div>
+        </div>
+        <div class="row">
+          <div class="row-title">崇拜部</div>
+          <div class="time">南庆澎</div>
+        </div>
+        <div class="row">
+          <div class="row-title">灵修部</div>
+          <div class="time">颜秀云</div>
+        </div>
+        <div class="row">
+          <div class="row-title">财务部</div>
+          <div class="time">李燕凡</div>
+        </div>
+        <div class="row">
+          <div class="row-title">关怀部</div>
+          <div class="time">王华芳</div>
+        </div>
+        <div class="row">
+          <div class="row-title">文书部</div>
+          <div class="time">陆仕林</div>
+        </div>
+      </div>
     </section>
 
     <section id="announcements" class="card">
@@ -321,18 +369,57 @@
         <p class="muted">把重担交托，我们一起祷告</p>
       </div>
 
+      <div class="notice">
+        <div class="notice-title">代祷｜为李燕凡姐妹祷告</div>
+        <p class="muted" style="margin:0;">
+          李燕凡姐妹近日走路时不慎摔倒，求主亲自医治她，减轻她的疼痛，赐她完全的康复与复原。
+          愿主的恩手扶持她，使她的身体一天天强壮起来。<br>
+          "他医好伤心的人，裹好他们的伤处。"（诗篇 147:3）
+        </p>
+      </div>
+
+      <div class="notice">
+        <div class="notice-title">代祷｜为周杰弟兄、陆仕林弟兄的身份转换祷告</div>
+        <p class="muted" style="margin:0;">
+          求主亲自带领两位弟兄身份转换的每一步，在等候的日子里赐下平安，使一切手续顺利、结果蒙恩。<br>
+          "要专心仰赖耶和华，不可倚靠自己的聪明，在你一切所行的事上都要认定他，他必指引你的路。"（箴言 3:5-6）
+        </p>
+      </div>
+
       <div class="contact-links" style="margin-top:12px;">
         <a class="btn"
            href="https://www.notion.so/2d4ae3f3953780129ae4cb98e5685a62?source=copy_link"
            target="_blank"
            rel="noreferrer">
-          🙏 查看代祷事项
+          🙏 查看更多代祷事项
         </a>
       </div>
+    </section>
 
-      <p class="muted small" style="margin-top:12px;">
-        提示：点击后将在新页面打开，支持手机浏览与分享。
-      </p>
+    <section id="knowledge" class="card">
+      <div class="section-head">
+        <h2>基督教小知识</h2>
+      </div>
+      <div class="list">
+        <div class="row">
+          <div>
+            <div class="row-title">「阿门」是什么意思？</div>
+            <div class="muted small">源自希伯来语"诚心所愿"。祷告结束时说"阿门"，表示认同、愿神成就。</div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="row-title">「哈利路亚」是什么意思？</div>
+            <div class="muted small">"你们要赞美耶和华"，是对神赞美的欢呼。</div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="row-title">「以马内利」是什么意思？</div>
+            <div class="muted small">"神与我们同在"（马太福音 1:23），耶稣道成肉身住在我们中间。</div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="contact" class="card">
@@ -428,14 +515,14 @@
   </script>
   <script>
   (function () {
-    // 让下拉菜单在深色主题可读
+    // 让下拉菜单在浅色主题可读
     const style = document.createElement("style");
     style.textContent = `
       #bibleBook, #bibleBook option, select option {
-        background: #111827 !important;
-        color: #ffffff !important;
+        background: #ffffff !important;
+        color: #1c2b20 !important;
       }
-      :root { color-scheme: dark; }
+      :root { color-scheme: light; }
     `;
     document.head.appendChild(style);
 
